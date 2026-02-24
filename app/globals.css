@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+/* prevent accidental horizontal overflow on small screens */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* nice scrollbars */
+* {
+  scrollbar-width: thin;
+}
+
+.bg-grid {
+  background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.08) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+.dark .bg-grid {
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.10) 1px, transparent 0);
+}
+
+
+.stats-card-inner-corners::before,
+.stats-card-inner-corners::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.stats-card-inner-corners::before {
+  top: -20px;
+  right: 0;
+  border-bottom-right-radius: 9999px;
+  box-shadow: 8px 8px 0 8px white;
+}
+
+.stats-card-inner-corners::after {
+  bottom: 0;
+  left: -20px;
+  border-bottom-right-radius: 9999px;
+  box-shadow: 8px 8px 0 8px white;
+}
