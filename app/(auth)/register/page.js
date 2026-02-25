@@ -5,6 +5,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function RegisterPage() {
   const router = useRouter();
   const sp = useSearchParams();
