@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
           <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
           <div className="bg-grid">
             <Nav />
-            <main className="mx-auto max-w-7xl px-4 pb-12 pt-8">{children}</main>
+            <main className="mx-auto max-w-7xl px-4 pb-12 pt-8 mt-20">{children}</main>
             <Footer />
           </div>
                   </AuthProvider>
