@@ -3,6 +3,9 @@ import bcrypt from 'bcryptjs';
 import { prisma } from '@/lib/prisma';
 import { isValidEmail } from '@/lib/validators';
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function POST(req) {
   const body = await req.json().catch(() => ({}));
   const name = String(body?.name || '').trim();
