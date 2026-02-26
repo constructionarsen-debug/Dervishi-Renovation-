@@ -26,14 +26,14 @@ export const metadata = {
     title: "eBooks - Dervishi Renovation",
     description:
       "eBooks praktike për renovim & interier: planifikim, buxhet, materiale dhe hapa pune.",
-    images: [{ url: "/og-image-v2.webp", width: 1200, height: 630, alt: "eBooks për Renovim" }],
+    images: [{ url: "/og-image-v2.jpg", width: 1200, height: 630, alt: "eBooks për Renovim" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "eBooks - Dervishi Renovation",
     description:
       "eBooks praktike për renovim & interier: planifikim, buxhet, materiale dhe hapa pune.",
-    images: ["/og-image-v2.webp"],
+    images: ["/og-image-v2.jpg"],
   },
 };
 
