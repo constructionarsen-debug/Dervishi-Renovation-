@@ -25,14 +25,14 @@ export const metadata = {
     title: "Projektet - Dervishi Renovation",
     description:
       "Projektet e realizuara në apartamente, shtëpi, zyra dhe ambiente komerciale. Punime cilësore dhe interiere moderne.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Projektet e Dervishi Renovation" }],
+    images: [{ url: "/og-image-v2.webp", width: 1200, height: 630, alt: "Projektet e Dervishi Renovation" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Projektet - Dervishi Renovation",
     description:
       "Shiko projektet e realizuara: renovim, interier, apartamente, zyra dhe ambiente komerciale.",
-    images: ["/og-image.png"],
+    images: ["/og-image-v2.webp"],
   },
 };
 

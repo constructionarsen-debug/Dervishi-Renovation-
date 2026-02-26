@@ -21,14 +21,14 @@ export const metadata = {
     title: "Rreth Nesh - Dervishi Renovation",
     description:
       "Mësoni për ekipin, qasjen dhe standardet e punës së Dervishi Renovation - cilësi, transparencë dhe garanci.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Rreth Dervishi Renovation" }],
+    images: [{ url: "/og-image-v2.webp", width: 1200, height: 630, alt: "Rreth Dervishi Renovation" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Rreth Nesh | Dervishi Renovation",
     description:
       "Renovim i plotë dhe interiere moderne në Tiranë dhe Shqipëri - cilësi, transparencë dhe garanci.",
-    images: ["/og-image.png"],
+    images: ["/og-image-v2.webp"],
   },
 };
 

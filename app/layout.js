@@ -59,7 +59,7 @@ export const metadata = {
       "Renovim apartamentesh, shtëpish, zyrash dhe interiere moderne në Tiranë dhe Shqipëri. Punime cilësore, transparencë dhe garanci.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image-v2.png",
         width: 1200,
         height: 630,
         alt: "Dervishi Renovation - Renovim dhe Interier",
@@ -72,7 +72,7 @@ export const metadata = {
     title: "Dervishi Renovation - Renovim & Interiere Moderne",
     description:
       "Renovim apartamentesh, shtëpish, zyrash dhe interiere moderne në Tiranë dhe Shqipëri. Punime cilësore, transparencë dhe garanci.",
-    images: ["/og-image.png"],
+    images: ["/og-image-v2.webp"],
   },
 
   robots: {

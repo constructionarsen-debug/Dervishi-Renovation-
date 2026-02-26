@@ -27,14 +27,14 @@ export const metadata = {
     title: "Shërbimi Online (Q&A) - Dervishi Renovation",
     description:
       "Konsultë online për renovim: pyetje & përgjigje, udhëzim për materiale, buxhet, plan pune dhe zgjidhje.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Shërbimi Online Q&A" }],
+    images: [{ url: "/og-image-v2.webp", width: 1200, height: 630, alt: "Shërbimi Online Q&A" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Shërbimi Online (Q&A) - Dervishi Renovation",
     description:
       "Konsultë online për renovim: pyetje & përgjigje, materiale, buxhet, plan pune dhe zgjidhje.",
-    images: ["/og-image.png"],
+    images: ["/og-image-v2.webp"],
   },
 };
 
