@@ -1,10 +1,40 @@
 import Image from 'next/image';
 
-export const metadata = { title: 'Rreth Nesh | Dervishi Renovation' };
+export const metadata = {
+  title: "Rreth Nesh",
+  description:
+    "Dervishi Renovation ofron renovim të plotë dhe interiere moderne në Tiranë dhe Shqipëri. Fokus në cilësi, planifikim, transparencë dhe garanci pune.",
+  keywords: [
+    "rreth dervishi renovation",
+    "kompani renovimi tirane",
+    "kontraktor renovimi",
+    "interier tirane",
+    "punime ndertimi shqiperi",
+  ],
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    type: "website",
+    locale: "sq_AL",
+    url: "/about",
+    title: "Rreth Nesh - Dervishi Renovation",
+    description:
+      "Mësoni për ekipin, qasjen dhe standardet e punës së Dervishi Renovation - cilësi, transparencë dhe garanci.",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Rreth Dervishi Renovation" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rreth Nesh | Dervishi Renovation",
+    description:
+      "Renovim i plotë dhe interiere moderne në Tiranë dhe Shqipëri - cilësi, transparencë dhe garanci.",
+    images: ["/og-image.png"],
+  },
+};
 
 export default function AboutPage() {
   return (
-    <div className="grid gap-8 lg:grid-cols-12">
+    <div className="grid gap-8 lg:grid-cols-12 mt-10">
       <div className="lg:col-span-6">
         <h1 className="text-3xl font-extrabold">Rreth Nesh</h1>
         <p className="mt-4 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
@@ -26,7 +56,7 @@ export default function AboutPage() {
         <div className="overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-soft dark:border-white/10 dark:bg-gray-900">
           <div className="relative h-[520px] w-full">
             <Image
-              src="https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=2000&q=80"
+              src="/about.jpeg"
               alt="Team"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"

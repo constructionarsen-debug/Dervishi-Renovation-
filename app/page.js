@@ -283,7 +283,7 @@ export default async function HomePage() {
 
             <div className="mt-6 flex flex-wrap gap-3">
               <a
-                href="https://wa.me/355000000000"
+                href="https://wa.me/355696081051"
                 target="_blank"
                 rel="noreferrer"
                 className="rounded-full bg-green-600 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-green-700"
@@ -312,7 +312,7 @@ export default async function HomePage() {
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <a
-            href="https://wa.me/355000000000"
+            href="https://wa.me/355696081051"
             target="_blank"
             rel="noreferrer"
             className="rounded-full bg-green-600 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-green-700"

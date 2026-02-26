@@ -6,7 +6,36 @@ import { PAYMENTS_ENABLED } from '@/lib/featureFlags';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Shërbimi Online | Dervishi Renovation'
+  title: "Shërbimi Online (Q&A) - Konsultë për Renovim",
+  description:
+    "Bëj pyetje dhe merr udhëzim profesional për renovimin: materiale, buxhet, faza pune, gabime të zakonshme dhe zgjidhje praktike. Shërbim online nga Dervishi Renovation.",
+  keywords: [
+    "konsulte renovimi online",
+    "qa renovim",
+    "keshillim interieri",
+    "materiale ndertimi",
+    "buxhet renovimi",
+    "renovim tirane online",
+  ],
+  alternates: {
+    canonical: "/qa",
+  },
+  openGraph: {
+    type: "website",
+    locale: "sq_AL",
+    url: "/qa",
+    title: "Shërbimi Online (Q&A) - Dervishi Renovation",
+    description:
+      "Konsultë online për renovim: pyetje & përgjigje, udhëzim për materiale, buxhet, plan pune dhe zgjidhje.",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Shërbimi Online Q&A" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shërbimi Online (Q&A) - Dervishi Renovation",
+    description:
+      "Konsultë online për renovim: pyetje & përgjigje, materiale, buxhet, plan pune dhe zgjidhje.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default async function OnlineServicePage() {

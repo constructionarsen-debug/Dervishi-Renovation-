@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 export default function LoginPage() {
   const sp = useSearchParams();
-  const callbackUrl = sp.get('from') || '/library';
+  const callbackUrl = sp.get('from') || '/profile';
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');

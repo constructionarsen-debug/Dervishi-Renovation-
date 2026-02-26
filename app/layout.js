@@ -7,9 +7,103 @@ import { extractRouterConfig } from 'uploadthing/server';
 import { ourFileRouter } from '@/app/api/uploadthing/core';
 import Nav from '@/components/Nav';
 
+// app/layout.js
+
 export const metadata = {
-  title: 'Dervishi Renovation',
-  description: 'Rinovime & rikonstruksione profesionale në Shqipëri me standardin e UK.'
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+
+  title: {
+    default: "Dervishi Renovation - Renovim Apartamentesh & Interiere në Shqipëri",
+    template: "%s | Dervishi Renovation",
+  },
+
+  description:
+    "Renovim apartamentesh, shtëpish, zyrash dhe interiere moderne në Tiranë dhe Shqipëri. Punime cilësore, planifikim i saktë, transparencë dhe garanci. Shërbim online, eBooks dhe projekte të realizuara.",
+
+  applicationName: "Dervishi Renovation",
+  generator: "Next.js",
+  referrer: "origin-when-cross-origin",
+
+  keywords: [
+    "dervishi renovation",
+    "renovim tirane",
+    "renovim apartamentesh tirane",
+    "renovim shtepish",
+    "rinovim banese",
+    "interier tirane",
+    "dizajn interieri",
+    "punime gipsi",
+    "bojatisje",
+    "elektrike hidraulike",
+    "parket pllake",
+    "punime ndertimi tirane",
+    "kompani renovimi shqiperi",
+    "restaurim apartamenti",
+    "kontraktor renovimi",
+    "renovim zyra",
+    "renovim lokali",
+  ],
+
+  alternates: {
+    canonical: "/",
+  },
+
+  openGraph: {
+    type: "website",
+    locale: "sq_AL",
+    alternateLocale: ["en_US"],
+    url: "/",
+    siteName: "Dervishi Renovation",
+    title: "Dervishi Renovation - Renovim & Interiere Moderne në Shqipëri",
+    description:
+      "Renovim apartamentesh, shtëpish, zyrash dhe interiere moderne në Tiranë dhe Shqipëri. Punime cilësore, transparencë dhe garanci.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Dervishi Renovation - Renovim dhe Interier",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Dervishi Renovation - Renovim & Interiere Moderne",
+    description:
+      "Renovim apartamentesh, shtëpish, zyrash dhe interiere moderne në Tiranë dhe Shqipëri. Punime cilësore, transparencë dhe garanci.",
+    images: ["/og-image.png"],
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+
+  other: {
+    "geo.region": "AL",
+    "geo.placename": "Tiranë",
+    "geo.position": "41.3275;19.8187",
+    ICBM: "41.3275, 19.8187",
+  },
+
+  category: "construction",
+
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png" }],
+  },
+
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({ children }) {

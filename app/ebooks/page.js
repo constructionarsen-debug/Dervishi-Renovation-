@@ -4,7 +4,38 @@ import { prisma } from '@/lib/prisma';
 import FeatureGateOverlay from '@/components/FeatureGateOverlay';
 import { PAYMENTS_ENABLED } from '@/lib/featureFlags';
 
-export const metadata = { title: 'Ebook | Dervishi Renovation' };
+export const metadata = {
+  title: "eBooks për Renovim & Interier",
+  description:
+    "Udhëzues praktikë (eBooks) për renovim dhe interier: planifikim, buxhetim, materiale, hapa pune dhe këshilla për rezultate profesionale.",
+  keywords: [
+    "ebook renovim",
+    "udhëzues renovimi",
+    "ebook interier",
+    "planifikim renovimi",
+    "materiale renovimi",
+    "keshilla interieri",
+  ],
+  alternates: {
+    canonical: "/ebooks",
+  },
+  openGraph: {
+    type: "website",
+    locale: "sq_AL",
+    url: "/ebooks",
+    title: "eBooks - Dervishi Renovation",
+    description:
+      "eBooks praktike për renovim & interier: planifikim, buxhet, materiale dhe hapa pune.",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "eBooks për Renovim" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "eBooks - Dervishi Renovation",
+    description:
+      "eBooks praktike për renovim & interier: planifikim, buxhet, materiale dhe hapa pune.",
+    images: ["/og-image.png"],
+  },
+};
 
 export default async function EbooksPage() {
   const ebooks = await prisma.ebook.findMany({ where: { isActive: true }, orderBy: { createdAt: 'desc' } });
