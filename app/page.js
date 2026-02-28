@@ -302,29 +302,49 @@ export default async function HomePage() {
       </section>
 
       {/* Quick CTA */}
-      <section className="rounded-[2rem] border border-black/10 bg-gradient-to-br from-amber-50 to-white p-8 shadow-sm dark:border-white/10 dark:from-amber-500/10 dark:to-gray-950">
-        <h3 className="text-2xl font-extrabold text-gray-900 dark:text-white">
-          Gati për të transformuar hapësirën tuaj?
-        </h3>
-        <p className="mt-3 max-w-2xl text-sm text-gray-600 dark:text-gray-300">
-          Na kontaktoni sot dhe merrni një konsultë profesionale për projektin
-          tuaj.
-        </p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <a
-            href="https://wa.me/355696081051"
-            target="_blank"
-            rel="noreferrer"
-            className="rounded-full bg-green-600 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-green-700"
-          >
-            Kontakto në WhatsApp
-          </a>
-          <Link
-            href="/qa"
-            className="rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-bold text-gray-900 shadow-sm transition hover:bg-gray-50 dark:border-white/10 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800"
-          >
-            Dërgo Mesazh
-          </Link>
+      <section className="relative overflow-hidden rounded-[2rem] border border-black/10 shadow-sm dark:border-white/10">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/cta-bg.png" // vendose ne public/
+            alt="Renovim Interior"
+            fill
+            priority={false}
+            sizes="100vw"
+            className="object-cover"
+          />
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-black/50 dark:bg-black/60" />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 p-8">
+          <h3 className="text-2xl font-extrabold text-white">
+            Gati për të transformuar hapësirën tuaj?
+          </h3>
+
+          <p className="mt-3 max-w-2xl text-sm text-white/80">
+            Na kontaktoni sot dhe merrni një konsultë profesionale për projektin
+            tuaj.
+          </p>
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a
+              href="https://wa.me/355696081051"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full bg-green-600 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-green-700"
+            >
+              Kontakto në WhatsApp
+            </a>
+
+            <Link
+              href="/qa"
+              className="rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-5 py-3 text-sm font-bold text-white transition hover:bg-white/20"
+            >
+              Dërgo Mesazh
+            </Link>
+          </div>
         </div>
       </section>
     </div>

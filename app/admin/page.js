@@ -3,7 +3,7 @@ import AdminSignOut from '@/components/AdminSignOut';
 import EbookUploadTools from '@/components/EbookUploadTools';
 import ProjectUploadTools from '@/components/ProjectUploadTools';
 
-export const metadata = { title: 'Admin | Dervishi Renovation' };
+export const metadata = { title: 'Admin' };
 
 function Section({ title, children }) {
   return (
@@ -41,12 +41,12 @@ export default async function AdminPage() {
         </div>
       </div>
 
-      <Section title="Çmimet (manual)">
+      <Section title="Çmimet">
         <div className="grid gap-5 lg:grid-cols-2">
           {prices.map((p) => (
             <form key={p.id} action="/api/admin/prices" method="POST" className="rounded-2xl border border-black/5 bg-gray-50 p-5 dark:border-white/10 dark:bg-white/5">
               <input type="hidden" name="key" value={p.key} />
-              <div className="text-sm font-extrabold">{p.key}</div>
+              <div className="text-sm font-extrabold">Konfiguro çmimin mujor</div>
               <div className="mt-4 grid gap-3">
                 <input name="title" defaultValue={p.title} className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
                 <input name="description" defaultValue={p.description || ''} placeholder="Përshkrim" className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
@@ -186,9 +186,7 @@ export default async function AdminPage() {
             <div className="mt-4 grid gap-3">
               <input name="title" placeholder="Titulli" required className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
               <input name="location" placeholder="Lokacion" className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
-              <input id="project_coverImage" name="coverImage" placeholder="Cover image URL" className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
               <textarea name="description" placeholder="Përshkrim" rows={3} className="w-full resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
-              <textarea id="project_images" name="images" placeholder="Imazhe të tjera (1 URL për rresht)" rows={4} className="w-full resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
 
               <ProjectUploadTools coverInputId="project_coverImage" imagesTextareaId="project_images" />
               <button className="rounded-2xl bg-gray-900 px-4 py-3 text-sm font-extrabold text-white hover:bg-black dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100" type="submit">Krijo</button>
@@ -223,11 +221,8 @@ export default async function AdminPage() {
               <input name="title" placeholder="Titulli" required className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
               <input name="shortDesc" placeholder="Përshkrim i shkurtër" required className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
               <textarea name="longDesc" placeholder="Përshkrim i gjatë (opsionale)" rows={3} className="w-full resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
-              <input name="priceLek" type="number" placeholder="Çmimi (Lek)" required className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
-              <input id="ebook_coverImage" name="coverImage" placeholder="Cover image URL" className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
-              <textarea id="ebook_previewMedia" name="previewMedia" placeholder="Preview media (1 URL për rresht)" rows={3} className="w-full resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
-              <textarea id="ebook_contentMedia" name="contentMedia" placeholder="Content media (PDF/video) (1 URL për rresht)" rows={3} className="w-full resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
-              <input id="ebook_contentUrl" name="contentUrl" placeholder="(Legacy) Content URL - 1 link" className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
+              <input name="priceLek" type="number" placeholder="Çmimi (Lek)" required className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />              
+              {/* <input id="ebook_contentUrl" name="contentUrl" placeholder="(Legacy) Content URL - 1 link" className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" /> */}
 
               <EbookUploadTools />
               <button className="rounded-2xl bg-gray-900 px-4 py-3 text-sm font-extrabold text-white hover:bg-black dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100" type="submit">Ruaj</button>

@@ -58,7 +58,7 @@ export default function Footer() {
                   href="https://instagram.com"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex h-11 w-11 items-center justify-center rounded-full bg-white/5 border border-white/10 transition-all hover:bg-white hover:text-black hover:scale-105 dark:text-white dark:hover:text-black"
+                  className="flex h-11 w-11 items-center justify-center rounded-full bg-white/5 border border-gray-300 transition-all hover:bg-gradient-to-r from-[#833AB4] via-[#E1306C] to-[#FCAF45] hover:text-white hover:scale-105 dark:text-white dark:hover:text-white"
                 >
                   <Instagram size={18} />
                 </a>
@@ -67,7 +67,7 @@ export default function Footer() {
                   href="https://wa.me/355696081051"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex h-11 w-11 items-center justify-center rounded-full bg-white/5 border border-white/10 transition-all hover:bg-green-500 hover:text-white hover:scale-105 dark:text-white dark:hover:text-white"
+                  className="flex h-11 w-11 items-center justify-center rounded-full bg-white/5 border border-gray-300 transition-all hover:bg-green-500 hover:text-white hover:scale-105 dark:text-white dark:hover:text-white"
                 >
                   <MessageCircle size={18} />
                 </a>

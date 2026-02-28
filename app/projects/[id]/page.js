@@ -26,7 +26,7 @@ export default async function ProjectDetailPage({ params }) {
       </div>
 
       <div className="overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-soft dark:border-white/10 dark:bg-gray-900">
-        <div className="relative h-[360px] w-full">
+        <div className="relative h-[460px] w-full">
           <Image
             src={project.coverImage || 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=2000&q=80'}
             alt={project.title}
