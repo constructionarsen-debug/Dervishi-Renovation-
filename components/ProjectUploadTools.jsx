@@ -3,12 +3,39 @@
 import { UploadButton } from '@/lib/uploadthing';
 import { useState } from 'react';
 
-function appendLines(id, urls) {
+function getUrl(f) {
+  // UploadThing v7+ returns ufsUrl; url may be deprecated depending on version.
+  return f?.ufsUrl || f?.url || f?.fileUrl || '';
+}
+
+function mergeUrlsIntoField(id, urls) {
   const el = document.getElementById(id);
   if (!el) return;
-  const current = (el.value || '').trim();
+
+  // Support both:
+  //  - hidden input that stores JSON array (recommended)
+  //  - textarea that stores newline-separated URLs (legacy)
+  const tag = (el.tagName || '').toLowerCase();
+  const type = (el.getAttribute?.('type') || '').toLowerCase();
+  const isHiddenJson = tag === 'input' && type === 'hidden';
+
+  if (isHiddenJson) {
+    let current = [];
+    try {
+      current = JSON.parse(el.value || '[]');
+      if (!Array.isArray(current)) current = [];
+    } catch {
+      current = [];
+    }
+
+    const merged = Array.from(new Set([...current, ...urls].filter(Boolean)));
+    el.value = JSON.stringify(merged);
+    return;
+  }
+
+  const currentText = (el.value || '').trim();
   const add = urls.join('\n');
-  el.value = current ? `${current}\n${add}` : add;
+  el.value = currentText ? `${currentText}\n${add}` : add;
 }
 
 function setValue(id, value) {
@@ -44,7 +71,7 @@ export default function ProjectUploadTools({ coverInputId = 'project_coverImage'
               container: 'w-full'
             }}
             onClientUploadComplete={(res) => {
-              const urls = (res || []).map((f) => f.ufsUrl).filter(Boolean);
+              const urls = (res || []).map(getUrl).filter(Boolean);
               if (urls[0]) setValue(coverInputId, urls[0]);
               setMsg('Cover u ngarkua.');
             }}
@@ -61,8 +88,8 @@ export default function ProjectUploadTools({ coverInputId = 'project_coverImage'
               container: 'w-full'
             }}
             onClientUploadComplete={(res) => {
-              const urls = (res || []).map((f) => f.ufsUrl).filter(Boolean);
-              appendLines(imagesTextareaId, urls);
+              const urls = (res || []).map(getUrl).filter(Boolean);
+              mergeUrlsIntoField(imagesTextareaId, urls);
               setMsg('Gallery u shtua.');
             }}
             onUploadError={(error) => setMsg(`ERROR: ${error.message}`)}

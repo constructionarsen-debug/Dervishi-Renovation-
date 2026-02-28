@@ -21,7 +21,7 @@ export default async function EditProjectPage({ params }) {
     );
   }
 
-  const imagesText = (project.images || []).join('\n');
+  const imagesJson = JSON.stringify(project.images || []);
 
   return (
     <div className="space-y-6">
@@ -42,9 +42,11 @@ export default async function EditProjectPage({ params }) {
         <div className="grid gap-3">
           <input name="title" defaultValue={project.title} placeholder="Titulli" required className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
           <input name="location" defaultValue={project.location || ''} placeholder="Lokacion" className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
-          <input id="project_coverImage_edit" name="coverImage" defaultValue={project.coverImage || ''} placeholder="Cover image URL" className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
           <textarea name="description" defaultValue={project.description || ''} placeholder="Përshkrim" rows={4} className="w-full resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
-          <textarea id="project_images_edit" name="images" defaultValue={imagesText} placeholder="Imazhe të tjera (1 URL për rresht)" rows={6} className="w-full resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
+
+          {/* uploads only */}
+          <input id="project_coverImage_edit" name="coverImage" type="hidden" defaultValue={project.coverImage || ''} />
+          <input id="project_images_edit" name="images" type="hidden" defaultValue={imagesJson} />
 
           <ProjectUploadTools coverInputId="project_coverImage_edit" imagesTextareaId="project_images_edit" />
 

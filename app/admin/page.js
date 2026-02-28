@@ -192,6 +192,11 @@ export default async function AdminPage() {
               <input name="location" placeholder="Lokacion" className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
               <textarea name="description" placeholder="Përshkrim" rows={3} className="w-full resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
 
+              {/* Hidden fields filled automatically by ProjectUploadTools (uploads only) */}
+              <input id="project_coverImage" name="coverImage" type="hidden" defaultValue="" />
+              {/* Store gallery as JSON array string */}
+              <input id="project_images" name="images" type="hidden" defaultValue="[]" />
+
               <ProjectUploadTools coverInputId="project_coverImage" imagesTextareaId="project_images" />
               <button className="rounded-2xl bg-gray-900 px-4 py-3 text-sm font-extrabold text-white hover:bg-black dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100" type="submit">Krijo</button>
             </div>

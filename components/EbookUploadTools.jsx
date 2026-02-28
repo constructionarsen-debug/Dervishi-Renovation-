@@ -43,7 +43,9 @@ export default function EbookUploadTools() {
               container: 'w-full'
             }}
             onClientUploadComplete={(res) => {
-              const urls = (res || []).map((f) => f.ufsUrl).filter(Boolean);
+              const urls = (res || [])
+                .map((f) => f?.ufsUrl || f?.url || f?.fileUrl)
+                .filter(Boolean);
               if (urls[0]) setValue('ebook_coverImage', urls[0]);
               setMsg('Cover u ngarkua.');
             }}
@@ -59,7 +61,9 @@ export default function EbookUploadTools() {
               container: 'w-full'
             }}
             onClientUploadComplete={(res) => {
-              const urls = (res || []).map((f) => f.ufsUrl).filter(Boolean);
+              const urls = (res || [])
+                .map((f) => f?.ufsUrl || f?.url || f?.fileUrl)
+                .filter(Boolean);
               appendLines('ebook_previewMedia', urls);
               setMsg('Preview media u shtua.');
             }}
@@ -75,7 +79,9 @@ export default function EbookUploadTools() {
               container: 'w-full'
             }}
             onClientUploadComplete={(res) => {
-              const urls = (res || []).map((f) => f.ufsUrl).filter(Boolean);
+              const urls = (res || [])
+                .map((f) => f?.ufsUrl || f?.url || f?.fileUrl)
+                .filter(Boolean);
               appendLines('ebook_contentMedia', urls);
               // keep legacy in sync when only one URL
               if (urls.length === 1) setValue('ebook_contentUrl', urls[0]);

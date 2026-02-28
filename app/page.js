@@ -22,7 +22,9 @@ function Stat({ value, label }) {
 
 export default async function HomePage() {
   const projects = await prisma.project.findMany({
-    orderBy: { createdAt: "desc" },
+    // Use updatedAt for ordering so items still appear correctly even if
+    // some legacy rows have a null createdAt in production.
+    orderBy: { updatedAt: "desc" },
     take: 6,
   });
   const testimonials = await prisma.testimonial.findMany({

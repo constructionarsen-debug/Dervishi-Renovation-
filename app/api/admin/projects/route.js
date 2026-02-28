@@ -15,9 +15,24 @@ function normalizeUrls(val) {
       })
       .filter(Boolean);
   }
-  // Accept newline-separated URLs
-  return String(val)
-    .trim()
+
+  const raw = String(val).trim();
+  if (!raw) return [];
+
+  // Accept JSON array string (used by hidden input fields)
+  if ((raw.startsWith('[') && raw.endsWith(']')) || (raw.startsWith('{') && raw.endsWith('}'))) {
+    try {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) return normalizeUrls(parsed);
+      // some clients may send { urls: [...] }
+      if (parsed?.urls && Array.isArray(parsed.urls)) return normalizeUrls(parsed.urls);
+    } catch {
+      // fallthrough to newline parsing
+    }
+  }
+
+  // Accept newline-separated URLs (legacy)
+  return raw
     .split(/\r?\n/)
     .map((s) => s.trim())
     .filter(Boolean);
@@ -97,7 +112,9 @@ export async function POST(req) {
   if (!title) return NextResponse.json({ ok: false, message: 'Missing title' }, { status: 400 });
 
   const created = await prisma.project.create({
-    data: { title, location: location || null, description: description || null, coverImage: coverImage || null, images }
+    // Set createdAt explicitly to avoid issues if the production DB schema
+    // was created without a default(now()) on createdAt.
+    data: { title, location: location || null, description: description || null, coverImage: coverImage || null, images, createdAt: new Date() }
   });
 
   revalidatePath('/');
