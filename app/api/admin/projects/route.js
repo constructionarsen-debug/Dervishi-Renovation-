@@ -3,6 +3,26 @@ import { prisma } from '@/lib/prisma';
 import { requireAdmin } from '@/lib/requireAdmin';
 import { revalidatePath } from 'next/cache';
 
+function normalizeUrls(val) {
+  if (!val) return [];
+  if (Array.isArray(val)) {
+    return val
+      .map((v) => {
+        if (!v) return null;
+        if (typeof v === 'string') return v;
+        // uploadthing objects may include ufsUrl/url/fileUrl
+        return v.ufsUrl || v.url || v.fileUrl || null;
+      })
+      .filter(Boolean);
+  }
+  // Accept newline-separated URLs
+  return String(val)
+    .trim()
+    .split(/\r?\n/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
 export async function POST(req) {
   try {
     await requireAdmin();
@@ -25,6 +45,7 @@ export async function POST(req) {
     await prisma.project.delete({ where: { id } });
 
     // Bust caches so pages update instantly
+    revalidatePath('/');
     revalidatePath('/projects');
     revalidatePath('/admin');
     revalidatePath('/admin/projects');
@@ -45,13 +66,7 @@ export async function POST(req) {
     const coverImage = String((isJson ? (payload?.coverImage ?? payload?.coverUrl) : form?.get('coverImage')) || '').trim();
 
     const imagesVal = isJson ? payload?.images : form?.get('images');
-    const images = Array.isArray(imagesVal)
-      ? imagesVal.filter(Boolean)
-      : String(imagesVal || '')
-          .trim()
-          .split(/\r?\n/)
-          .map((s) => s.trim())
-          .filter(Boolean);
+    const images = normalizeUrls(imagesVal);
 
     if (!title) return NextResponse.json({ ok: false, message: 'Missing title' }, { status: 400 });
 
@@ -60,6 +75,7 @@ export async function POST(req) {
       data: { title, location: location || null, description: description || null, coverImage: coverImage || null, images }
     });
 
+    revalidatePath('/');
     revalidatePath('/projects');
     revalidatePath('/admin');
     revalidatePath('/admin/projects');
@@ -76,13 +92,7 @@ export async function POST(req) {
   const coverImage = String((isJson ? (payload?.coverImage ?? payload?.coverUrl) : form?.get('coverImage')) || '').trim();
 
   const imagesVal = isJson ? payload?.images : form?.get('images');
-  const images = Array.isArray(imagesVal)
-    ? imagesVal.filter(Boolean)
-    : String(imagesVal || '')
-        .trim()
-        .split(/\r?\n/)
-        .map((s) => s.trim())
-        .filter(Boolean);
+  const images = normalizeUrls(imagesVal);
 
   if (!title) return NextResponse.json({ ok: false, message: 'Missing title' }, { status: 400 });
 
@@ -90,6 +100,7 @@ export async function POST(req) {
     data: { title, location: location || null, description: description || null, coverImage: coverImage || null, images }
   });
 
+  revalidatePath('/');
   revalidatePath('/projects');
   revalidatePath('/admin');
   revalidatePath('/admin/projects');

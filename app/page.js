@@ -2,6 +2,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 
+// Homepage lists latest projects/testimonials from DB.
+// Force dynamic rendering so Vercel/Next doesn't cache at build time.
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 function Stat({ value, label }) {
   return (
     <div>
