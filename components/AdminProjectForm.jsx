@@ -1,9 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { EbookMediaUpload } from '@/components/UploadButtons';
 
 export default function AdminProjectForm() {
+  const router = useRouter();
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [description, setDescription] = useState('');
@@ -18,11 +20,21 @@ export default function AdminProjectForm() {
     const r = await fetch('/api/admin/projects', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title, location, description, coverUrl, images }),
+      body: JSON.stringify({ action: 'create', title, location, description, coverUrl, images }),
     });
     const d = await r.json().catch(() => ({}));
     setLoading(false);
-    setMsg(r.ok ? 'U krijua ✅ (refresh page)' : (d?.error || 'Gabim'));
+    if (r.ok) {
+      setMsg('U krijua ✅');
+      setTitle('');
+      setLocation('');
+      setDescription('');
+      setCoverUrl('');
+      setImages([]);
+      router.refresh();
+    } else {
+      setMsg(d?.message || d?.error || 'Gabim');
+    }
   };
 
   return (

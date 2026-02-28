@@ -5,6 +5,10 @@ import ProjectUploadTools from '@/components/ProjectUploadTools';
 
 export const metadata = { title: 'Admin' };
 
+// Admin reads live DB data; don't let Next cache it.
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 function Section({ title, children }) {
   return (
     <section className="rounded-[2rem] border border-black/10 bg-white p-7 shadow-sm dark:border-white/10 dark:bg-gray-900">

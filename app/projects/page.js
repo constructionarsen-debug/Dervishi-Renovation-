@@ -2,6 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 
+// This page must always be dynamic because it reads from the database.
+// Otherwise Vercel/Next can cache it at build time and you won't see new projects
+// until a new deployment.
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata = {
   title: "Projektet e Renovimit në Tiranë & Shqipëri",
   description:

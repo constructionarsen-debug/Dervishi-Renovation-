@@ -4,6 +4,10 @@ import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import ProjectGallery from '@/components/ProjectGallery';
 
+// Always render from DB (avoid stale cache after create/update/delete)
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function ProjectDetailPage({ params }) {
   const project = await prisma.project.findUnique({ where: { id: params.id } });
   if (!project) return notFound();

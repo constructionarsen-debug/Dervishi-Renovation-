@@ -3,6 +3,9 @@ import ProjectUploadTools from '@/components/ProjectUploadTools';
 
 export const metadata = { title: 'Edit Project | Dervishi Renovation' };
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function EditProjectPage({ params }) {
   const id = params?.id;
   const project = await prisma.project.findUnique({ where: { id } });
