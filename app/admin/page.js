@@ -179,7 +179,7 @@ export default async function AdminPage() {
                 </div>
               </form>
             ))}
-          </div>
+          </div> 
 
           <form action="/api/admin/projects" method="POST" className="rounded-2xl border border-dashed border-black/20 bg-white p-5 dark:border-white/20 dark:bg-gray-950/30">
             <div className="text-sm font-extrabold">Shto projekt</div>
