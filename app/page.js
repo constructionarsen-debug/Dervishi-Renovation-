@@ -342,7 +342,7 @@ export default async function HomePage() {
               href="/qa"
               className="rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-5 py-3 text-sm font-bold text-white transition hover:bg-white/20"
             >
-              Dërgo Mesazh
+              Dërgo Mesazh 
             </Link>
           </div>
         </div>
