@@ -44,7 +44,7 @@ export default function ProjectUploadTools({ coverInputId = 'project_coverImage'
               container: 'w-full'
             }}
             onClientUploadComplete={(res) => {
-              const urls = (res || []).map((f) => f.url).filter(Boolean);
+              const urls = (res || []).map((f) => f.ufsUrl).filter(Boolean);
               if (urls[0]) setValue(coverInputId, urls[0]);
               setMsg('Cover u ngarkua.');
             }}
@@ -61,7 +61,7 @@ export default function ProjectUploadTools({ coverInputId = 'project_coverImage'
               container: 'w-full'
             }}
             onClientUploadComplete={(res) => {
-              const urls = (res || []).map((f) => f.url).filter(Boolean);
+              const urls = (res || []).map((f) => f.ufsUrl).filter(Boolean);
               appendLines(imagesTextareaId, urls);
               setMsg('Gallery u shtua.');
             }}
