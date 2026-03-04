@@ -1,7 +1,12 @@
 import Link from "next/link";
-import { Instagram, MessageCircle } from "lucide-react";
+import { Instagram, Music2 } from "lucide-react";
 
 export default function Footer() {
+  const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
+  const contactPhone = process.env.NEXT_PUBLIC_CONTACT_PHONE || "+355696081051";
+  const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL || "https://instagram.com";
+  const tiktokUrl = process.env.NEXT_PUBLIC_TIKTOK_URL || "https://tiktok.com";
+
   return (
     <footer className="mt-20 border-t border-white/10 bg-white dark:bg-[rgba(0,0,0,0.08)] text-black">
       <div className="mx-auto max-w-7xl px-6 py-16">
@@ -27,20 +32,24 @@ export default function Footer() {
 
             <ul className="space-y-3 text-sm">
               <li>
-                <a
-                  href="mailto:info@dervishirenovation.al"
-                  className="hover:text-gray transition-colors dark:text-white"
-                >
-                  info@dervishirenovation.al
-                </a>
+                {contactEmail ? (
+                  <a
+                    href={`mailto:${contactEmail}`}
+                    className="hover:text-gray transition-colors dark:text-white"
+                  >
+                    {contactEmail}
+                  </a>
+                ) : (
+                  <span className="text-gray-500 dark:text-white">Email: së shpejti</span>
+                )}
               </li>
 
               <li>
                 <a
-                  href="tel:+355696081051"
+                  href={`tel:${contactPhone}`}
                   className="hover:text-gray transition-colors dark:text-white"
                 >
-                  +355 69 608 1051
+                  {contactPhone}
                 </a>
               </li>
 
@@ -55,7 +64,7 @@ export default function Footer() {
             <div>
               <div className="mt-4 flex items-center gap-4">
                 <a
-                  href="https://instagram.com"
+                  href={instagramUrl}
                   target="_blank"
                   rel="noreferrer"
                   className="flex h-11 w-11 items-center justify-center rounded-full bg-white/5 border border-gray-300 transition-all hover:bg-gradient-to-r from-[#833AB4] via-[#E1306C] to-[#FCAF45] hover:text-white hover:scale-105 dark:text-white dark:hover:text-white"
@@ -64,12 +73,12 @@ export default function Footer() {
                 </a>
 
                 <a
-                  href="https://wa.me/355696081051"
+                  href={tiktokUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex h-11 w-11 items-center justify-center rounded-full bg-white/5 border border-gray-300 transition-all hover:bg-green-500 hover:text-white hover:scale-105 dark:text-white dark:hover:text-white"
+                  className="flex h-11 w-11 items-center justify-center rounded-full bg-white/5 border border-gray-300 transition-all hover:bg-black hover:text-white hover:scale-105 dark:text-white dark:hover:text-white"
                 >
-                  <MessageCircle size={18} />
+                  <Music2 size={18} />
                 </a>
               </div>
             </div>

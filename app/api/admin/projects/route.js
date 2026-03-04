@@ -76,6 +76,7 @@ export async function POST(req) {
     if (!id) return NextResponse.json({ ok: false, message: 'Missing id' }, { status: 400 });
 
     const title = String((isJson ? payload?.title : form?.get('title')) || '').trim();
+    const category = String((isJson ? payload?.category : form?.get('category')) || '').trim();
     const location = String((isJson ? payload?.location : form?.get('location')) || '').trim();
     const description = String((isJson ? payload?.description : form?.get('description')) || '').trim();
     const coverImage = String((isJson ? (payload?.coverImage ?? payload?.coverUrl) : form?.get('coverImage')) || '').trim();
@@ -85,13 +86,16 @@ export async function POST(req) {
 
     if (!title) return NextResponse.json({ ok: false, message: 'Missing title' }, { status: 400 });
 
+    const safeCategory = category || 'Rinovime';
+
     await prisma.project.update({
       where: { id },
-      data: { title, location: location || null, description: description || null, coverImage: coverImage || null, images }
+      data: { title, category: safeCategory, location: location || null, description: description || null, coverImage: coverImage || null, images }
     });
 
     revalidatePath('/');
     revalidatePath('/projects');
+    revalidatePath(`/projects/category/${encodeURIComponent(safeCategory.toLowerCase())}`);
     revalidatePath('/admin');
     revalidatePath('/admin/projects');
     revalidatePath(`/projects/${id}`);
@@ -102,6 +106,7 @@ export async function POST(req) {
   }
 
   const title = String((isJson ? payload?.title : form?.get('title')) || '').trim();
+  const category = String((isJson ? payload?.category : form?.get('category')) || '').trim();
   const location = String((isJson ? payload?.location : form?.get('location')) || '').trim();
   const description = String((isJson ? payload?.description : form?.get('description')) || '').trim();
   const coverImage = String((isJson ? (payload?.coverImage ?? payload?.coverUrl) : form?.get('coverImage')) || '').trim();
@@ -111,14 +116,17 @@ export async function POST(req) {
 
   if (!title) return NextResponse.json({ ok: false, message: 'Missing title' }, { status: 400 });
 
+  const safeCategory = category || 'Rinovime';
+
   const created = await prisma.project.create({
     // Set createdAt explicitly to avoid issues if the production DB schema
     // was created without a default(now()) on createdAt.
-    data: { title, location: location || null, description: description || null, coverImage: coverImage || null, images, createdAt: new Date() }
+    data: { title, category: safeCategory, location: location || null, description: description || null, coverImage: coverImage || null, images, createdAt: new Date() }
   });
 
   revalidatePath('/');
   revalidatePath('/projects');
+  revalidatePath(`/projects/category/${encodeURIComponent(safeCategory.toLowerCase())}`);
   revalidatePath('/admin');
   revalidatePath('/admin/projects');
 

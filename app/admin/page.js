@@ -19,13 +19,15 @@ function Section({ title, children }) {
 }
 
 export default async function AdminPage() {
-  const [orders, questions, prices, contacts, projects, ebooks] = await Promise.all([
+  const [orders, questions, prices, contacts, projects, ebooks, pendingReviews, approvedReviews] = await Promise.all([
     prisma.order.findMany({ orderBy: { createdAt: 'desc' }, take: 30, include: { ebook: true, question: true } }),
     prisma.question.findMany({ orderBy: { createdAt: 'desc' }, take: 30, include: { order: true } }),
     prisma.priceSetting.findMany({ where: { key: 'qa_monthly' }, orderBy: { updatedAt: 'desc' } }),
     prisma.contactMessage.findMany({ orderBy: { createdAt: 'desc' }, take: 30 }),
     prisma.project.findMany({ orderBy: { createdAt: 'desc' }, take: 12 }),
-    prisma.ebook.findMany({ orderBy: { createdAt: 'desc' }, take: 12 })
+    prisma.ebook.findMany({ orderBy: { createdAt: 'desc' }, take: 12 }),
+    prisma.review.findMany({ where: { approved: false }, orderBy: { createdAt: 'desc' }, take: 30 }),
+    prisma.review.findMany({ where: { approved: true }, orderBy: { createdAt: 'desc' }, take: 10 }),
   ]);
 
   const salesLek = orders.filter((o) => o.paymentStatus === 'PAID').reduce((s, o) => s + o.amountLek, 0);
@@ -166,6 +168,84 @@ export default async function AdminPage() {
         </div>
       </Section>
 
+      <Section title="Reviews (për aprovim)">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="text-sm text-gray-600 dark:text-gray-300">
+            Vetëm review-t e aprovuara shfaqen në Homepage te “Pse Dervishi Renovation?”.
+          </div>
+          <a
+            href="/admin/reviews"
+            className="rounded-full bg-white px-4 py-2 text-xs font-extrabold text-gray-900 shadow-sm hover:bg-gray-50 dark:bg-gray-950 dark:text-white dark:hover:bg-gray-900"
+          >
+            Shiko të gjitha
+          </a>
+        </div>
+
+        <div className="mt-5 grid gap-6 lg:grid-cols-2">
+          <div className="space-y-3">
+            <div className="text-sm font-extrabold">Në pritje (pending)</div>
+            {pendingReviews.map((r) => (
+              <div key={r.id} className="rounded-2xl border border-black/5 bg-gray-50 p-5 dark:border-white/10 dark:bg-white/5">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <div className="text-sm font-extrabold">{r.firstName} {r.lastName}</div>
+                    <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">{r.email} • {new Date(r.createdAt).toLocaleString('sq-AL')}</div>
+                    <div className="mt-2 text-amber-600 dark:text-amber-400 text-sm">{'★★★★★'.slice(0, r.rating || 5)}{'☆☆☆☆☆'.slice(0, 5 - (r.rating || 5))}</div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <form action="/api/admin/reviews" method="POST">
+                      <input type="hidden" name="action" value="approve" />
+                      <input type="hidden" name="id" value={r.id} />
+                      <button className="rounded-full bg-amber-600 px-4 py-2 text-xs font-extrabold text-white hover:bg-amber-700" type="submit">Aprovo</button>
+                    </form>
+                    <form action="/api/admin/reviews" method="POST">
+                      <input type="hidden" name="action" value="delete" />
+                      <input type="hidden" name="id" value={r.id} />
+                      <button className="rounded-full bg-red-600 px-4 py-2 text-xs font-extrabold text-white hover:bg-red-700" type="submit">Fshi</button>
+                    </form>
+                  </div>
+                </div>
+                <p className="mt-3 text-sm text-gray-700 dark:text-gray-200">{r.content}</p>
+              </div>
+            ))}
+            {!pendingReviews.length && (
+              <div className="rounded-2xl border border-black/5 bg-gray-50 p-5 text-sm text-gray-600 dark:border-white/10 dark:bg-white/5 dark:text-gray-300">
+                Asnjë review në pritje.
+              </div>
+            )}
+          </div>
+
+          <div className="space-y-3">
+            <div className="text-sm font-extrabold">Të aprovuara (shfaqen në homepage)</div>
+            {approvedReviews.map((r) => (
+              <div key={r.id} className="rounded-2xl border border-black/5 bg-gray-50 p-5 dark:border-white/10 dark:bg-white/5">
+                <div className="text-sm font-extrabold">{r.firstName} {r.lastName}</div>
+                <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">{new Date(r.createdAt).toLocaleString('sq-AL')}</div>
+                <div className="mt-2 text-amber-600 dark:text-amber-400 text-sm">{'★★★★★'.slice(0, r.rating || 5)}{'☆☆☆☆☆'.slice(0, 5 - (r.rating || 5))}</div>
+                <p className="mt-3 text-sm text-gray-700 dark:text-gray-200">{r.content}</p>
+                <div className="mt-4 flex items-center gap-2">
+                  <form action="/api/admin/reviews" method="POST">
+                    <input type="hidden" name="action" value="unapprove" />
+                    <input type="hidden" name="id" value={r.id} />
+                    <button className="rounded-full bg-white px-4 py-2 text-xs font-extrabold text-gray-900 shadow-sm hover:bg-gray-50 dark:bg-gray-950 dark:text-white dark:hover:bg-gray-900" type="submit">Hiq aprovim</button>
+                  </form>
+                  <form action="/api/admin/reviews" method="POST">
+                    <input type="hidden" name="action" value="delete" />
+                    <input type="hidden" name="id" value={r.id} />
+                    <button className="rounded-full bg-red-600 px-4 py-2 text-xs font-extrabold text-white hover:bg-red-700" type="submit">Fshi</button>
+                  </form>
+                </div>
+              </div>
+            ))}
+            {!approvedReviews.length && (
+              <div className="rounded-2xl border border-black/5 bg-gray-50 p-5 text-sm text-gray-600 dark:border-white/10 dark:bg-white/5 dark:text-gray-300">
+                Asnjë review e aprovuar ende.
+              </div>
+            )}
+          </div>
+        </div>
+      </Section>
+
       <Section title="Projektet (gallery)">
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="space-y-3">
@@ -189,6 +269,25 @@ export default async function AdminPage() {
             <div className="text-sm font-extrabold">Shto projekt</div>
             <div className="mt-4 grid gap-3">
               <input name="title" placeholder="Titulli" required className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
+
+              <select name="category" defaultValue="Rinovime" className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950">
+                {[
+                  'Mirembajtje',
+                  'Rikonstruksione',
+                  'Rinovime',
+                  'Banjo',
+                  'Kuzhina',
+                  'Hidraulike',
+                  'Elektrike',
+                  'Mure gipsi',
+                  'Boje',
+                  'Pllaka',
+                  'Kopshtari dhe peizazhim',
+                ].map((c) => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
+              </select>
+
               <input name="location" placeholder="Lokacion" className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
               <textarea name="description" placeholder="Përshkrim" rows={3} className="w-full resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
 

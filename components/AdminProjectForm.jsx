@@ -6,7 +6,21 @@ import { EbookMediaUpload } from '@/components/UploadButtons';
 
 export default function AdminProjectForm() {
   const router = useRouter();
+  const CATEGORIES = [
+    'Mirembajtje',
+    'Rikonstruksione',
+    'Rinovime',
+    'Banjo',
+    'Kuzhina',
+    'Hidraulike',
+    'Elektrike',
+    'Mure gipsi',
+    'Boje',
+    'Pllaka',
+    'Kopshtari dhe peizazhim',
+  ];
   const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('Rinovime');
   const [location, setLocation] = useState('');
   const [description, setDescription] = useState('');
   const [coverUrl, setCoverUrl] = useState('');
@@ -20,13 +34,14 @@ export default function AdminProjectForm() {
     const r = await fetch('/api/admin/projects', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'create', title, location, description, coverUrl, images }),
+      body: JSON.stringify({ action: 'create', title, category, location, description, coverUrl, images }),
     });
     const d = await r.json().catch(() => ({}));
     setLoading(false);
     if (r.ok) {
       setMsg('U krijua ✅');
       setTitle('');
+      setCategory('Rinovime');
       setLocation('');
       setDescription('');
       setCoverUrl('');
@@ -42,6 +57,16 @@ export default function AdminProjectForm() {
       <div>
         <label className="label">Titulli</label>
         <input className="input mt-1" value={title} onChange={(e) => setTitle(e.target.value)} />
+      </div>
+
+      <div>
+        <label className="label">Kategoria</label>
+        <select className="input mt-1" value={category} onChange={(e) => setCategory(e.target.value)}>
+          {CATEGORIES.map((c) => (
+            <option key={c} value={c}>{c}</option>
+          ))}
+        </select>
+        <div className="mt-1 text-xs text-gray-500 dark:text-zinc-300">Projektet shfaqen te /projects sipas kategorive.</div>
       </div>
       <div>
         <label className="label">Lokacion</label>

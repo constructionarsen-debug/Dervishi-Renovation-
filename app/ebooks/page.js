@@ -5,7 +5,7 @@ import FeatureGateOverlay from '@/components/FeatureGateOverlay';
 import { PAYMENTS_ENABLED } from '@/lib/featureFlags';
 
 export const metadata = {
-  title: "eBooks për Renovim & Interier",
+  title: "E-book / Kurse për Ndërtim Online",
   description:
     "Udhëzues praktikë (eBooks) për renovim dhe interier: planifikim, buxhetim, materiale, hapa pune dhe këshilla për rezultate profesionale.",
   keywords: [
@@ -49,9 +49,9 @@ export default async function EbooksPage() {
     <div className='mt-10'>
       <div className="flex items-end justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold">Ebook</h1>
+          <h1 className="text-3xl font-extrabold">E-book / Kurse për Ndërtim Online</h1>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
-            Materiale praktike (PDF, foto, video). Preview i kufizuar; materiali i plotë pas pagesës.
+            Kurse online për ndërtim, shoqëruar me PDF, foto, video dhe asistencë online.
           </p>
         </div>
       </div>

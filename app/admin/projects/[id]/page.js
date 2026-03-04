@@ -22,6 +22,19 @@ export default async function EditProjectPage({ params }) {
   }
 
   const imagesJson = JSON.stringify(project.images || []);
+  const CATEGORIES = [
+    'Mirembajtje',
+    'Rikonstruksione',
+    'Rinovime',
+    'Banjo',
+    'Kuzhina',
+    'Hidraulike',
+    'Elektrike',
+    'Mure gipsi',
+    'Boje',
+    'Pllaka',
+    'Kopshtari dhe peizazhim',
+  ];
 
   return (
     <div className="space-y-6">
@@ -41,6 +54,13 @@ export default async function EditProjectPage({ params }) {
 
         <div className="grid gap-3">
           <input name="title" defaultValue={project.title} placeholder="Titulli" required className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
+
+          <select name="category" defaultValue={project.category || 'Rinovime'} className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950">
+            {CATEGORIES.map((c) => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </select>
+
           <input name="location" defaultValue={project.location || ''} placeholder="Lokacion" className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
           <textarea name="description" defaultValue={project.description || ''} placeholder="Përshkrim" rows={4} className="w-full resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
 

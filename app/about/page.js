@@ -47,6 +47,11 @@ export default function AboutPage() {
           Ne nuk ofrojmë thjesht punime — ne ndërtojmë besim, qëndrueshmëri dhe perfeksion në detaje.
         </p>
 
+        <p className="mt-4 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+          Realizojmë punime të plota sipas nevojës së projektit: rikonstruksione, rinovime, banjo dhe kuzhina, hidraulikë, elektrikë,
+          mure gipsi, bojatisje, shtrim pllakash, si edhe mirëmbajtje e peizazhim.
+        </p>
+
         <div className="mt-6 rounded-2xl border border-black/5 bg-gray-50 p-5 text-sm text-gray-700 dark:border-white/10 dark:bg-white/5 dark:text-gray-200">
           Për pyetje dhe konsultë: përdorni Shërbimin Online ose na kontaktoni direkt.
         </div>
@@ -56,7 +61,7 @@ export default function AboutPage() {
         <div className="overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-soft dark:border-white/10 dark:bg-gray-900">
           <div className="relative h-[520px] w-full">
             <Image
-              src="/about.jpeg"
+              src="/about-new.jpg"
               alt="Team"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"

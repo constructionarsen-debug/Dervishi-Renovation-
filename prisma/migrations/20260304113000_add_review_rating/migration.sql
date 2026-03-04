@@ -1,0 +1,2 @@
+-- Add rating to Review
+ALTER TABLE "Review" ADD COLUMN IF NOT EXISTS "rating" INTEGER NOT NULL DEFAULT 5;

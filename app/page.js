@@ -25,12 +25,43 @@ export default async function HomePage() {
     // Use updatedAt for ordering so items still appear correctly even if
     // some legacy rows have a null createdAt in production.
     orderBy: { updatedAt: "desc" },
-    take: 6,
+    take: 3,
   });
   const testimonials = await prisma.testimonial.findMany({
     orderBy: { createdAt: "desc" },
     take: 3,
   });
+
+  const approvedReviews = await prisma.review.findMany({
+    where: { approved: true },
+    orderBy: { createdAt: 'desc' },
+    take: 6,
+  });
+
+  const whyCards = [
+    ...approvedReviews.map((r) => ({
+      id: r.id,
+      name: `${r.firstName} ${r.lastName}`,
+      role: 'Klient',
+      quote: r.content,
+      rating: r.rating || 5,
+      _type: 'review',
+    })),
+    ...testimonials.map((t) => ({
+      id: t.id,
+      name: t.name,
+      role: t.role || 'Klient',
+      quote: t.quote,
+      rating: t.rating || 5,
+      _type: 'testimonial',
+    })),
+  ].slice(0, 3);
+
+  const Stars = ({ n }) => (
+    <div className="mt-2 text-amber-500" aria-label={`${n} out of 5 stars`}>
+      {'★★★★★'.slice(0, n)}{'☆☆☆☆☆'.slice(0, 5 - n)}
+    </div>
+  );
 
   return (
     <div className="space-y-16">
@@ -165,13 +196,16 @@ export default async function HomePage() {
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               {[
-                "Rikonstruksione dhe rinovime të plota",
-                "Banja dhe kuzhina moderne",
-                "Punime hidraulike dhe elektrike",
-                "Mure gipsi dhe struktura dekorative",
-                "Lyerje profesionale dhe rifinitura",
-                "Shtrim pllakash me precizion",
-                "Mirëmbajtje dhe përmirësime strukturore",
+                "Mirembajtje",
+                "Rikonstruksione",
+                "Rinovime",
+                "Banjo",
+                "Kuzhina",
+                "Hidraulike",
+                "Elektrike",
+                "Mure gipsi",
+                "Boje",
+                "Pllaka",
                 "Kopshtari dhe peizazhim",
               ].map((s) => (
                 <div
@@ -270,7 +304,7 @@ export default async function HomePage() {
 
           <div className="lg:col-span-7">
             <div className="grid gap-4 sm:grid-cols-3">
-              {testimonials.map((t) => (
+              {whyCards.map((t) => (
                 <div
                   key={t.id}
                   className="rounded-2xl border border-black/5 bg-gray-50 p-5 dark:border-white/10 dark:bg-white/5"
@@ -281,6 +315,7 @@ export default async function HomePage() {
                   <div className="mt-1 text-xs font-semibold text-gray-500 dark:text-gray-400">
                     {t.role || "Klient"}
                   </div>
+                  <Stars n={Math.min(5, Math.max(1, t.rating || 5))} />
                   <p className="mt-3 text-sm text-gray-700 dark:text-gray-200">
                     “{t.quote}”
                   </p>
@@ -289,19 +324,18 @@ export default async function HomePage() {
             </div>
 
             <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href="https://wa.me/355696081051"
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full bg-green-600 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-green-700"
-              >
-                Kontakto në WhatsApp
-              </a>
               <Link
-                href="/qa"
+                href="/review"
                 className="rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-bold text-gray-900 shadow-sm transition hover:bg-gray-50 dark:border-white/10 dark:bg-gray-950 dark:text-white dark:hover:bg-gray-900"
               >
-                Dërgo Mesazh
+                Lër një Review
+              </Link>
+
+              <Link
+                href="/qa"
+                className="rounded-full bg-amber-600 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-amber-700"
+              >
+                Bli Anëtarësimin
               </Link>
             </div>
           </div>
@@ -336,20 +370,18 @@ export default async function HomePage() {
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3">
-            <a
-              href="https://wa.me/355696081051"
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full bg-green-600 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-green-700"
+            <Link
+              href="/qa"
+              className="rounded-full bg-amber-600 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-amber-700"
             >
-              Kontakto në WhatsApp
-            </a>
+              Bli Anëtarësimin
+            </Link>
 
             <Link
               href="/qa"
               className="rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-5 py-3 text-sm font-bold text-white transition hover:bg-white/20"
             >
-              Dërgo Mesazh 
+              Kërko Ofertë
             </Link>
           </div>
         </div>

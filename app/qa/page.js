@@ -64,11 +64,15 @@ export default async function OnlineServicePage() {
           <div className="text-xs font-extrabold tracking-wider text-amber-700 dark:text-amber-400">ÇMIMI</div>
           <div className="mt-2 text-3xl font-extrabold">{amount.toLocaleString('sq-AL')} Lek</div>
           <div className="mt-2 text-sm text-gray-600 dark:text-gray-300">{price?.description || 'Pagesë mujore manuale për Q&A dhe konsulta.'}</div>
-          <ul className="mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-200">
-            <li>✓ Konfirmim me email</li>
-            <li>✓ Udhëzime për pagesën</li>
-            <li>✓ Përgjigje direkte</li>
+          <div className="mt-5 text-xs font-extrabold tracking-wider text-amber-700 dark:text-amber-400">BENEFITET</div>
+          <ul className="mt-3 space-y-2 text-sm text-gray-700 dark:text-gray-200">
+            <li>✓ Një herë në muaj, inspektimi i shtëpisë suaj</li>
+            <li>✓ Shërbim me përparësi për anëtarët (prioritet në kohë reale)</li>
+            <li>✓ Konsulta falas për anëtarët gjatë muajit aktiv</li>
           </ul>
+          <div className="mt-4 text-xs text-gray-500 dark:text-gray-400">
+            Membership është manual (pa abonim automatik). Kur të mbarojë afati, e rinovoni vetë.
+          </div>
         </div>
 
         <div className="mt-6 rounded-2xl border border-black/5 bg-gray-50 p-5 text-sm text-gray-700 dark:border-white/10 dark:bg-white/5 dark:text-gray-200">
@@ -154,15 +158,24 @@ export default async function OnlineServicePage() {
           ) : (
             <>
               <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
-                Për të dërguar pyetje, aktivizoni aksesin 30-ditor me pagesë (manuale).
+                Për të dërguar pyetje, duhet të aktivizoni membership-in 30-ditor.
               </p>
+
+              <div className="mt-5 rounded-2xl border border-black/5 bg-gray-50 p-5 text-sm text-gray-700 dark:border-white/10 dark:bg-white/5 dark:text-gray-200">
+                <div className="text-sm font-extrabold">Çfarë përfiton?</div>
+                <ul className="mt-3 space-y-2">
+                  <li>• Një herë në muaj, inspektimi i shtëpisë suaj</li>
+                  <li>• Shërbim me përparësi për anëtarët (prioritet në kohë reale)</li>
+                  <li>• Konsulta falas për anëtarët gjatë muajit aktiv</li>
+                </ul>
+              </div>
 
               <form action="/api/qa/buy" method="POST" className="mt-6 space-y-4">
                 <button
                   type="submit"
                   className="w-full rounded-2xl bg-amber-600 px-5 py-3 text-sm font-extrabold text-white shadow-sm hover:bg-amber-700"
                 >
-                  Paguaj për 30 ditë akses
+                  Bli Membership (30 ditë)
                 </button>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
                   Pagesa është manuale (pa abonim automatik). Kur të mbarojë afati, e rinovoni vetë.
