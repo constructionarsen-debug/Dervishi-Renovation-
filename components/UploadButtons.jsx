@@ -7,8 +7,6 @@ export function EbookMediaUpload({ onUploaded, label = 'Upload media' }) {
     <UploadButton
       endpoint="ebookMedia"
       onClientUploadComplete={(res) => {
-        // UploadThing's client response fields can vary by version.
-        // Prefer ufsUrl (recommended in docs), then url/fileUrl.
         const urls = (res || [])
           .map((r) => r?.ufsUrl || r?.url || r?.fileUrl)
           .filter(Boolean);
