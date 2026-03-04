@@ -138,6 +138,7 @@ model Review {
   lastName  String
   email     String
   content   String
+  rating    Int      @default(5)
   approved  Boolean  @default(false)
   createdAt DateTime @default(now())
 
