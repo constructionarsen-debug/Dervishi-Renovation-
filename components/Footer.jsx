@@ -118,7 +118,7 @@ export default function Footer() {
               href="https://duadev.al"
               target="_blank"
               rel="noreferrer"
-              className="font-medium text-gray-400 hover:text-white transition-colors"
+              className="font-medium text-gray-400 hover:text-gray-700  transition-colors"
             >
               Website developed by DuaDev AL
             </a>
