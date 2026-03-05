@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export const metadata = {
-  title: 'Projektet - Kategoritë e Punëve | Dervishi Renovation',
+  title: 'Projektet - Kategoritë e Punëve',
   description:
     'Shiko kategoritë e punëve të realizuara nga Dervishi Renovation: mirëmbajtje, rikonstruksione, rinovime, banjo, kuzhina, hidraulike, elektrike, mure gipsi, bojë, pllaka dhe peizazhim.',
   keywords: [
@@ -95,7 +95,7 @@ export default async function ProjectsPage() {
         </div>
 
         <Link
-          href="/qa"
+          href="/contact"
           className="rounded-full bg-amber-600 px-5 py-3 text-sm font-bold text-white shadow-sm hover:bg-amber-700"
         >
           Kërko Ofertë

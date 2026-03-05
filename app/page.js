@@ -100,7 +100,7 @@ export default async function HomePage() {
                   Shiko Projektet
                 </Link>
                 <Link
-                  href="/qa"
+                  href="/contact"
                   className="rounded-full border border-white/30 bg-white/10 px-4 py-2.5 text-xs font-bold text-white backdrop-blur transition hover:bg-white/20 sm:px-5 sm:py-3 sm:text-sm"
                 >
                   Kërko Ofertë
@@ -376,7 +376,7 @@ export default async function HomePage() {
             </Link>
 
             <Link
-              href="/qa"
+              href="/contact"
               className="rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-5 py-3 text-sm font-bold text-white transition hover:bg-white/20"
             >
               Kërko Ofertë

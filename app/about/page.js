@@ -25,7 +25,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rreth Nesh | Dervishi Renovation",
+    title: "Rreth Nesh - Dervishi Renovation",
     description:
       "Renovim i plotë dhe interiere moderne në Tiranë dhe Shqipëri - cilësi, transparencë dhe garanci.",
     images: ["/og-image-v2.png"],

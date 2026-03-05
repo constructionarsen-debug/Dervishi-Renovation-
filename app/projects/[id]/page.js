@@ -24,7 +24,7 @@ export default async function ProjectDetailPage({ params }) {
           <h1 className="mt-2 text-3xl font-extrabold">{project.title}</h1>
           <div className="mt-2 text-sm text-gray-600 dark:text-gray-300">{project.location || 'Shqipëri'}</div>
         </div>
-        <Link href="/qa" className="rounded-full bg-amber-600 px-5 py-3 text-sm font-bold text-white shadow-sm hover:bg-amber-700">
+        <Link href="/contact" className="rounded-full bg-amber-600 px-5 py-3 text-sm font-bold text-white shadow-sm hover:bg-amber-700">
           Kërko Ofertë
         </Link>
       </div>

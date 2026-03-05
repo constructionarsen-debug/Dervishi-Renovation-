@@ -66,6 +66,7 @@ export default function Nav() {
             <Link href="/qa">Shërbimi Online</Link>
             <Link href="/ebooks">e-Book</Link>
             <Link href="/projects">Projektet</Link>
+            <Link href="/contact">Kontakt</Link>
           </nav>
 
           {/* RIGHT SIDE */}

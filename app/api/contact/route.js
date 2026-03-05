@@ -13,8 +13,13 @@ export async function POST(req) {
   const email = String(form.get('email') || '').trim().toLowerCase();
   const phone = String(form.get('phone') || '').trim();
   const message = String(form.get('message') || '').trim();
+  const company = String(form.get('company') || '').trim(); // honeypot
 
-  if (!name || !email || !message) {
+  if (company) {
+    return NextResponse.redirect(new URL('/contact?sent=1', req.url));
+  }
+
+  if (!name || !email || !phone || !message) {
     return NextResponse.redirect(new URL('/contact?error=missing', req.url));
   }
 
