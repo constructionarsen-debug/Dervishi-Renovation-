@@ -1,4 +1,6 @@
-# Dervishi Renovation (Next.js + Tailwind + Neon + Prisma + NextAuth)
+# Dervishi Renovation Website
+
+Developed by **DuaDev Agency**
 
 ## Setup
 
