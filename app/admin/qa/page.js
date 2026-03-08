@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import AdminSignOut from '@/components/AdminSignOut';
 
-export const metadata = { title: 'Admin Q&A | Dervishi Renovation' };
+export const metadata = { title: 'Admin Q&A' };
 
 export default async function AdminQaPage() {
   const tickets = await prisma.question.findMany({

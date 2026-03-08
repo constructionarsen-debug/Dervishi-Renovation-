@@ -38,7 +38,7 @@ function categoryFromSlug(slug) {
 
 export async function generateMetadata({ params }) {
   const category = categoryFromSlug(params.slug);
-  if (!category) return { title: 'Projektet | Dervishi Renovation' };
+  if (!category) return { title: 'Projektet' };
   return {
     title: `${category} | Projektet - Dervishi Renovation`,
     description: `Foto dhe video nga punimet tona për kategorinë: ${category}.`,

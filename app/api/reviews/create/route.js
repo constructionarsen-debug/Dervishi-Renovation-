@@ -30,7 +30,7 @@ export async function POST(req) {
     revalidatePath('/');
     revalidatePath('/review');
 
-    return NextResponse.redirect(new URL('/review?sent=1', req.url));
+    return NextResponse.redirect(new URL('/', req.url));
   } catch (e) {
     return NextResponse.json({ ok: false, message: 'Server error' }, { status: 500 });
   }

@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Privacy Policy | Dervishi Renovation',
+  title: 'Privacy Policy',
   description: 'Politika e privatësisë për Dervishi Renovation.',
   alternates: { canonical: '/privacy' },
 };

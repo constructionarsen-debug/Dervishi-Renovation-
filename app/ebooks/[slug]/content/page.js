@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/lib/auth';
 
-export const metadata = { title: 'Përmbajtja | Dervishi Renovation' };
+export const metadata = { title: 'Përmbajtja' };
 
 export default async function EbookContentPage({ params }) {
   const session = await auth();

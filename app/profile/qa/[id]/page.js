@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/lib/auth';
 
-export const metadata = { title: 'Ticket | Dervishi Renovation' };
+export const metadata = { title: 'Ticket' };
 
 export default async function TicketPage({ params }) {
   const session = await auth();

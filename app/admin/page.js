@@ -250,20 +250,30 @@ export default async function AdminPage() {
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="space-y-3">
             {projects.map((p) => (
-              <form key={p.id} action="/api/admin/projects" method="POST" className="flex items-center justify-between gap-3 rounded-2xl border border-black/5 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
-                <div>
-                  <div className="text-sm font-extrabold">{p.title}</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">{p.location || 'Shqipëri'}</div>
+              <form key={p.id} action="/api/admin/projects" method="POST" className="rounded-2xl border border-black/5 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0 flex-1">
+                    <div className="text-sm font-extrabold">{p.title}</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">{p.location || 'Shqipëri'} • {(p.images?.length || 0)} media</div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <a href={`/admin/projects/${p.id}`} className="rounded-full bg-white px-4 py-2 text-xs font-extrabold text-gray-900 shadow-sm hover:bg-gray-50 dark:bg-gray-950 dark:text-white dark:hover:bg-gray-900">Ndrysho</a>
+                    <input type="hidden" name="action" value="delete" />
+                    <input type="hidden" name="id" value={p.id} />
+                    <button className="rounded-full bg-red-600 px-4 py-2 text-xs font-extrabold text-white hover:bg-red-700" type="submit">Fshi</button>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <a href={`/admin/projects/${p.id}`} className="rounded-full bg-white px-4 py-2 text-xs font-extrabold text-gray-900 shadow-sm hover:bg-gray-50 dark:bg-gray-950 dark:text-white dark:hover:bg-gray-900">Ndrysho</a>
-                  <input type="hidden" name="action" value="delete" />
-                  <input type="hidden" name="id" value={p.id} />
-                  <button className="rounded-full bg-red-600 px-4 py-2 text-xs font-extrabold text-white hover:bg-red-700" type="submit">Fshi</button>
-                </div>
+                {(p.coverImage || p.images?.[0]) ? (
+                  <div className="mt-3 flex items-center gap-3 overflow-x-auto">
+                    <img src={p.coverImage || p.images?.[0]} alt={p.title} className="h-16 w-16 rounded-xl object-cover" />
+                    {p.images?.slice(0, 3).map((img, index) => (
+                      <img key={`${p.id}-${index}`} src={img} alt="project media" className="h-16 w-16 rounded-xl object-cover" />
+                    ))}
+                  </div>
+                ) : null}
               </form>
             ))}
-          </div> 
+          </div>
 
           <form action="/api/admin/projects" method="POST" className="rounded-2xl border border-dashed border-black/20 bg-white p-5 dark:border-white/20 dark:bg-gray-950/30">
             <div className="text-sm font-extrabold">Shto projekt</div>
@@ -291,9 +301,7 @@ export default async function AdminPage() {
               <input name="location" placeholder="Lokacion" className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
               <textarea name="description" placeholder="Përshkrim" rows={3} className="w-full resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
 
-              {/* Hidden fields filled automatically by ProjectUploadTools (uploads only) */}
               <input id="project_coverImage" name="coverImage" type="hidden" defaultValue="" />
-              {/* Store gallery as JSON array string */}
               <input id="project_images" name="images" type="hidden" defaultValue="[]" />
 
               <ProjectUploadTools coverInputId="project_coverImage" imagesTextareaId="project_images" />
@@ -307,18 +315,36 @@ export default async function AdminPage() {
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="space-y-3">
             {ebooks.map((e) => (
-              <form key={e.id} action="/api/admin/ebooks" method="POST" className="flex items-center justify-between gap-3 rounded-2xl border border-black/5 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
-                <div>
-                  <div className="text-sm font-extrabold">{e.title}</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">/{e.slug} • {e.priceLek.toLocaleString('sq-AL')} Lek • {e.isActive ? 'Aktiv' : 'Jo aktiv'}</div>
+              <div key={e.id} className="rounded-2xl border border-black/5 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0 flex-1">
+                    <div className="text-sm font-extrabold">{e.title}</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">/{e.slug} • {e.priceLek.toLocaleString('sq-AL')} Lek • {e.isActive ? 'Aktiv' : 'Jo aktiv'}</div>
+                    <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">Preview: {(e.previewMedia?.length || 0)} • Content: {(e.contentMedia?.length || 0)}</div>
+                  </div>
+                  <div className="flex flex-col items-end gap-2">
+                    <a href={`/admin/ebooks/${e.id}`} className="rounded-full bg-white px-4 py-2 text-xs font-extrabold text-gray-900 shadow-sm hover:bg-gray-50 dark:bg-gray-950 dark:text-white dark:hover:bg-gray-900">Ndrysho</a>
+                    <form action="/api/admin/ebooks" method="POST">
+                      <input type="hidden" name="action" value="toggle" />
+                      <input type="hidden" name="id" value={e.id} />
+                      <input type="hidden" name="isActive" value={String(!e.isActive)} />
+                      <button className="rounded-full bg-white px-4 py-2 text-xs font-extrabold text-gray-900 shadow-sm hover:bg-gray-50 dark:bg-gray-950 dark:text-white dark:hover:bg-gray-900" type="submit">
+                        {e.isActive ? 'Çaktivizo' : 'Aktivizo'}
+                      </button>
+                    </form>
+                  </div>
                 </div>
-                <input type="hidden" name="action" value="toggle" />
-                <input type="hidden" name="id" value={e.id} />
-                <input type="hidden" name="isActive" value={String(!e.isActive)} />
-                <button className="rounded-full bg-white px-4 py-2 text-xs font-extrabold text-gray-900 shadow-sm hover:bg-gray-50 dark:bg-gray-950 dark:text-white dark:hover:bg-gray-900" type="submit">
-                  {e.isActive ? 'Çaktivizo' : 'Aktivizo'}
-                </button>
-              </form>
+                {(e.coverImage || e.previewMedia?.[0] || e.contentMedia?.[0]) ? (
+                  <div className="mt-3 flex items-center gap-3 overflow-x-auto">
+                    {e.coverImage ? <img src={e.coverImage} alt={e.title} className="h-16 w-16 rounded-xl object-cover" /> : null}
+                    {e.previewMedia?.slice(0, 2).map((item, index) => (
+                      /\.(mp4|webm|ogg|mov|m4v)(\?|$)/i.test(item)
+                        ? <video key={`${e.id}-preview-${index}`} src={item} className="h-16 w-16 rounded-xl object-cover" muted playsInline />
+                        : <img key={`${e.id}-preview-${index}`} src={item} alt="ebook preview" className="h-16 w-16 rounded-xl object-cover" />
+                    ))}
+                  </div>
+                ) : null}
+              </div>
             ))}
           </div>
 
@@ -329,8 +355,11 @@ export default async function AdminPage() {
               <input name="title" placeholder="Titulli" required className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
               <input name="shortDesc" placeholder="Përshkrim i shkurtër" required className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
               <textarea name="longDesc" placeholder="Përshkrim i gjatë (opsionale)" rows={3} className="w-full resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
-              <input name="priceLek" type="number" placeholder="Çmimi (Lek)" required className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />              
-              {/* <input id="ebook_contentUrl" name="contentUrl" placeholder="(Legacy) Content URL - 1 link" className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" /> */}
+              <input name="priceLek" type="number" placeholder="Çmimi (Lek)" required className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-gray-950" />
+              <input id="ebook_coverImage" name="coverImage" type="hidden" defaultValue="" />
+              <textarea id="ebook_previewMedia" name="previewMedia" defaultValue="" className="hidden" readOnly />
+              <textarea id="ebook_contentMedia" name="contentMedia" defaultValue="" className="hidden" readOnly />
+              <input id="ebook_contentUrl" name="contentUrl" type="hidden" defaultValue="" />
 
               <EbookUploadTools />
               <button className="rounded-2xl bg-gray-900 px-4 py-3 text-sm font-extrabold text-white hover:bg-black dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100" type="submit">Ruaj</button>

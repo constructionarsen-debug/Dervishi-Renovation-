@@ -30,18 +30,24 @@ function mergeUrlsIntoField(id, urls) {
 
     const merged = Array.from(new Set([...current, ...urls].filter(Boolean)));
     el.value = JSON.stringify(merged);
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+    el.dispatchEvent(new Event('change', { bubbles: true }));
     return;
   }
 
   const currentText = (el.value || '').trim();
   const add = urls.join('\n');
   el.value = currentText ? `${currentText}\n${add}` : add;
+  el.dispatchEvent(new Event('input', { bubbles: true }));
+  el.dispatchEvent(new Event('change', { bubbles: true }));
 }
 
 function setValue(id, value) {
   const el = document.getElementById(id);
   if (!el) return;
   el.value = value;
+  el.dispatchEvent(new Event('input', { bubbles: true }));
+  el.dispatchEvent(new Event('change', { bubbles: true }));
 }
 
 function Box({ title, children, hint }) {

@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma';
 
-export const metadata = { title: 'Admin Reviews | Dervishi Renovation' };
+export const metadata = { title: 'Admin Reviews' };
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 

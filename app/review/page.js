@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Lër një Review | Dervishi Renovation',
+  title: 'Lër një Review',
   description:
     'Lër një review për eksperiencën tënde me Dervishi Renovation. Na ndihmon të përmirësohemi dhe u jep siguri klientëve të rinj.',
   alternates: { canonical: '/review' },

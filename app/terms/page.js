@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Terms & Conditions | Dervishi Renovation',
+  title: 'Terms & Conditions',
   description: 'Terma dhe kushte për përdorimin e website-it dhe blerjet (membership/produkte dixhitale).',
   alternates: { canonical: '/terms' },
 };

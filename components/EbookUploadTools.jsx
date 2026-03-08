@@ -9,12 +9,16 @@ function appendLines(id, urls) {
   const current = (el.value || '').trim();
   const add = urls.join('\n');
   el.value = current ? `${current}\n${add}` : add;
+  el.dispatchEvent(new Event('input', { bubbles: true }));
+  el.dispatchEvent(new Event('change', { bubbles: true }));
 }
 
 function setValue(id, value) {
   const el = document.getElementById(id);
   if (!el) return;
   el.value = value;
+  el.dispatchEvent(new Event('input', { bubbles: true }));
+  el.dispatchEvent(new Event('change', { bubbles: true }));
 }
 
 function Box({ title, children, hint }) {
@@ -27,7 +31,12 @@ function Box({ title, children, hint }) {
   );
 }
 
-export default function EbookUploadTools() {
+export default function EbookUploadTools({
+  coverInputId = 'ebook_coverImage',
+  previewInputId = 'ebook_previewMedia',
+  contentInputId = 'ebook_contentMedia',
+  contentUrlInputId = 'ebook_contentUrl',
+}) {
   const [msg, setMsg] = useState('');
 
   return (
@@ -46,7 +55,7 @@ export default function EbookUploadTools() {
               const urls = (res || [])
                 .map((f) => f?.ufsUrl || f?.url || f?.fileUrl)
                 .filter(Boolean);
-              if (urls[0]) setValue('ebook_coverImage', urls[0]);
+              if (urls[0]) setValue(coverInputId, urls[0]);
               setMsg('Cover u ngarkua.');
             }}
             onUploadError={(error) => setMsg(`ERROR: ${error.message}`)}
@@ -64,7 +73,7 @@ export default function EbookUploadTools() {
               const urls = (res || [])
                 .map((f) => f?.ufsUrl || f?.url || f?.fileUrl)
                 .filter(Boolean);
-              appendLines('ebook_previewMedia', urls);
+              appendLines(previewInputId, urls);
               setMsg('Preview media u shtua.');
             }}
             onUploadError={(error) => setMsg(`ERROR: ${error.message}`)}
@@ -82,9 +91,9 @@ export default function EbookUploadTools() {
               const urls = (res || [])
                 .map((f) => f?.ufsUrl || f?.url || f?.fileUrl)
                 .filter(Boolean);
-              appendLines('ebook_contentMedia', urls);
+              appendLines(contentInputId, urls);
               // keep legacy in sync when only one URL
-              if (urls.length === 1) setValue('ebook_contentUrl', urls[0]);
+              if (urls.length === 1) setValue(contentUrlInputId, urls[0]);
               setMsg('Content media u shtua.');
             }}
             onUploadError={(error) => setMsg(`ERROR: ${error.message}`)}

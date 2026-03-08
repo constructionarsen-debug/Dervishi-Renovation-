@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 
-export const metadata = { title: 'Admin Ticket | Dervishi Renovation' };
+export const metadata = { title: 'Admin Ticket' };
 
 export default async function AdminTicketPage({ params }) {
   const ticket = await prisma.question.findUnique({

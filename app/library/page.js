@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 
-export const metadata = { title: 'Biblioteka | Dervishi Renovation' };
+export const metadata = { title: 'Biblioteka' };
 
 export default async function LibraryPage() {
   const session = await getServerSession(authOptions);

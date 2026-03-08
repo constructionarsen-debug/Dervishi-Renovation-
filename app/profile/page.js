@@ -12,7 +12,7 @@ function initials(nameOrEmail) {
   return (a + b).toUpperCase();
 }
 
-export const metadata = { title: 'Profili | Dervishi Renovation' };
+export const metadata = { title: 'Profili' };
 
 export default async function ProfilePage() {
   const session = await auth();
