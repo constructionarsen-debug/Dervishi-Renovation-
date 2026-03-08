@@ -34,10 +34,10 @@ export async function POST(req) {
     data: { name, email, phone: phone ? normalizePhone(phone) : null, message }
   });
 
-  if (process.env.ADMIN_EMAIL) {
+  if (process.env.SMTP_USER) {
     const baseUrl = getBaseUrl(req);
     sendEmail({
-      to: process.env.ADMIN_EMAIL,
+      to: process.env.SMTP_USER,
       subject: 'Mesazh i ri (Kontakt) - Dervishi Renovation',
       text: `Nga: ${name} (${email})${phone ? `, ${normalizePhone(phone)}` : ''}\n\n${message}\n\nAdmin: ${baseUrl}/admin`,
       html: `<p><b>Nga:</b> ${name} (${email})${phone ? `, ${normalizePhone(phone)}` : ''}</p><p>${message.replace(/\n/g, '<br/>')}</p><p><a href="${baseUrl}/admin">Hap Admin</a></p>`
