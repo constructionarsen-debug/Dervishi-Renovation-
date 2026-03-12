@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Instagram, Music2 } from "lucide-react";
+import AgencyCredit from "./AgencyCredit";
 
 export default function Footer() {
   const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
@@ -122,14 +123,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <a
-              href="https://duadev.al"
-              target="_blank"
-              rel="noreferrer"
-              className="font-medium text-gray-400 hover:text-gray-700  transition-colors"
-            >
-              Website developed by DuaDev AL
-            </a>
+            <AgencyCredit />
           </div>
         </div>
       </div>
