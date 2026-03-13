@@ -36,12 +36,16 @@ export async function POST(req) {
 
   if (process.env.SMTP_USER) {
     const baseUrl = getBaseUrl(req);
-    sendEmail({
-      to: process.env.SMTP_USER,
-      subject: 'Mesazh i ri (Kontakt) - Dervishi Renovation',
-      text: `Nga: ${name} (${email})${phone ? `, ${normalizePhone(phone)}` : ''}\n\n${message}\n\nAdmin: ${baseUrl}/admin`,
-      html: `<p><b>Nga:</b> ${name} (${email})${phone ? `, ${normalizePhone(phone)}` : ''}</p><p>${message.replace(/\n/g, '<br/>')}</p><p><a href="${baseUrl}/admin">Hap Admin</a></p>`
-    }).catch(() => null);
+    try {
+      await sendEmail({
+        to: process.env.SMTP_USER,
+        subject: 'Mesazh i ri (Kontakt) - Dervishi Renovation',
+        text: `Nga: ${name} (${email})${phone ? `, ${normalizePhone(phone)}` : ''}\n\n${message}\n\nAdmin: ${baseUrl}/admin`,
+        html: `<p><b>Nga:</b> ${name} (${email})${phone ? `, ${normalizePhone(phone)}` : ''}</p><p>${message.replace(/\n/g, '<br/>')}</p><p><a href="${baseUrl}/admin">Hap Admin</a></p>`
+      });
+    } catch (err) {
+      console.error('Contact email failed:', err);
+    }
   }
 
   return NextResponse.redirect(new URL('/contact?sent=1', req.url));
